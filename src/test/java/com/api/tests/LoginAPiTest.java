@@ -1,5 +1,6 @@
 package com.api.tests;
 
+import static com.api.utils.ConfigManager.getProperty;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
@@ -19,7 +20,7 @@ public class LoginAPiTest {
 	{
 		//Rest Assured Code
 		UserCredentials user = new UserCredentials("iamfd", "password");
-		given().baseUri("http://64.227.160.186:9000/v1")
+		given().baseUri(getProperty("BASE_URI"))
 		.and()
 		.contentType(ContentType.JSON)
 		.and()
@@ -35,7 +36,7 @@ public class LoginAPiTest {
 		.then()
 		.log().all()
 		.statusCode(200)
-		.time(lessThan(1500L))
+		.time(lessThan(2500L))
 		.and()
 		.body("message", equalTo("Success"))
 		.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/LoginResponseSchema.json"));

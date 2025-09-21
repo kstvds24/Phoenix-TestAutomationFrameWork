@@ -7,6 +7,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PhoenixTestAutomationFramework</name>
 	<description>PhoenixTestAutomationFramework</description>
+	<properties>
+	<maven.compiler.source>14</maven.compiler.source>
+	<maven.compiler.target>14</maven.compiler.target>
+	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 		<dependency>
