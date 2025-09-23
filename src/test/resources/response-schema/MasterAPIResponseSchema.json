@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MasterDataResponse",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "mst_oem": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "is_active"]
+          }
+        },
+        "mst_model": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "mst_product_id": { "type": "integer" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "mst_product_id", "is_active"]
+          }
+        },
+        "mst_action_status": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "description": { "type": "string" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "description", "is_active"]
+          }
+        },
+        "mst_warrenty_status": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "description": { "type": "string" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "description", "is_active"]
+          }
+        },
+        "mst_platform": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "description": { "type": "string" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "description", "is_active"]
+          }
+        },
+        "mst_product": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "mst_oem_id": { "type": "integer" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "mst_oem_id", "is_active"]
+          }
+        },
+        "mst_role": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "description": { "type": "string" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "description", "is_active"]
+          }
+        },
+        "mst_service_location": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "code": { "type": "string" },
+              "mobile_number": { "type": "string" },
+              "email_id": { "type": "string", "format": "email" },
+              "address": { "type": "string" },
+              "pincode": { "type": "integer" },
+              "country": { "type": "string" },
+              "gstin": { "type": "string" },
+              "is_repair_line_engineer": { "type": "integer" },
+              "is_active": { "type": "integer" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name", "code", "mobile_number", "email_id", "address", "pincode", "country", "gstin", "is_active"]
+          }
+        },
+        "mst_problem": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "created_at": { "type": "string", "format": "date-time" },
+              "modified_at": { "type": "string", "format": "date-time" }
+            },
+            "required": ["id", "name"]
+          }
+        },
+        "map_fst_pincode": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pincode": { "type": "integer" },
+              "mst_service_location_id": { "type": "integer" },
+              "mst_service_location_name": { "type": "string" }
+            },
+            "required": ["pincode", "mst_service_location_id", "mst_service_location_name"]
+          }
+        }
+      },
+      "required": [
+        "mst_oem",
+        "mst_model",
+        "mst_action_status",
+        "mst_warrenty_status",
+        "mst_platform",
+        "mst_product",
+        "mst_role",
+        "mst_service_location",
+        "mst_problem",
+        "map_fst_pincode"
+      ]
+    }
+  },
+  "required": ["message", "data"]
+}

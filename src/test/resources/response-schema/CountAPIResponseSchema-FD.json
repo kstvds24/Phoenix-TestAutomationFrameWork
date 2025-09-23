@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeliveryStatusResponse",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "example": "Success"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Pending for delivery"
+          },
+          "key": {
+            "type": "string",
+            "example": "pending_for_delivery"
+          },
+          "count": {
+            "type": "integer",
+            "example": 127
+          }
+        },
+        "required": ["label", "key", "count"]
+      }
+    }
+  },
+  "required": ["message", "data"]
+}
