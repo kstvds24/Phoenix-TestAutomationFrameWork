@@ -1,15 +1,13 @@
 package com.api.utils;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+
 import com.api.constants.Role;
 import com.pojo.classes.UserCredentials;
 
 import io.restassured.http.ContentType;
-
-import static io.restassured.RestAssured.*;
-
-import static org.hamcrest.Matchers.*;
-
-import org.testng.annotations.Test;
 
 public class AuthTokenProvider {
 	
