@@ -1,15 +1,18 @@
 package com.api.tests;
 
-import static org.hamcrest.Matchers.*;
+import static com.api.constants.Role.FD;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.notNullValue;
+
 import org.testng.annotations.Test;
 
+import com.api.utils.SpecUtil;
+
 import io.restassured.module.jsv.JsonSchemaValidator;
-
-import static com.api.constants.Role.*;
-import static com.api.utils.AuthTokenProvider.*;
-import static com.api.utils.ConfigManager.*;
-
-import static io.restassured.RestAssured.*;
 
 public class MasterAPITest {
 	
@@ -17,19 +20,11 @@ public class MasterAPITest {
 	public void masterAPITest()
 	{
 		given()
-		.baseUri(getProperty("BASE_URI"))
-		.and()
-		.header("Authorization", getToken(FD))
-		.and()
-		.contentType("")
-		.log().headers()
-		.log().uri()
-		.log().method()
+		.spec(SpecUtil.RequestSpecWithAuth(FD))
 		.when()
 		.post("master")
 		.then()
-		.log().all()
-		.statusCode(200)
+		.spec(SpecUtil.ResponseSpec_JSON(200))
 		.body("message", equalTo("Success"))
 		.body("data", notNullValue())
 		.body("$", hasKey("data"))
@@ -48,19 +43,11 @@ public class MasterAPITest {
 	public void invalidTokenTest()
 	{
 		given()
-		.baseUri(getProperty("BASE_URI"))
-		.and()
-		.header("Authorization", "")
-		.and()
-		.contentType("")
-		.log().headers()
-		.log().uri()
-		.log().method()
+		.spec(SpecUtil.RequestSpec())
 		.when()
 		.post("master")
 		.then()
-		.log().all()
-		.statusCode(401);
+		.spec(SpecUtil.ResponseSpec_TEXT(401));
 	}
 
 }
