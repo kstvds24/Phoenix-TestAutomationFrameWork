@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 import com.api.constants.Role;
-import com.pojo.classes.UserCredentials;
+import com.api.pojo.UserCredentials;
 
 import io.restassured.http.ContentType;
 
