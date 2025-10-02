@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CreateJobResponse",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "API response message"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "mst_service_location_id": {
+          "type": "integer"
+        },
+        "mst_platform_id": {
+          "type": "integer"
+        },
+        "mst_warrenty_status_id": {
+          "type": "integer"
+        },
+        "mst_oem_id": {
+          "type": "integer"
+        },
+        "tr_customer_id": {
+          "type": "integer"
+        },
+        "tr_customer_product_id": {
+          "type": "integer"
+        },
+        "job_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "mst_service_location_id",
+        "mst_platform_id",
+        "mst_warrenty_status_id",
+        "mst_oem_id",
+        "tr_customer_id",
+        "tr_customer_product_id",
+        "job_number"
+      ]
+    }
+  },
+  "required": ["message", "data"]
+}
