@@ -6,28 +6,28 @@ import static org.hamcrest.Matchers.equalTo;
 
 import org.testng.annotations.Test;
 
-import com.api.utils.SpecUtil;
+import static com.api.utils.SpecUtil.*;
 
-import io.restassured.module.jsv.JsonSchemaValidator;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class UserDetailsAPITest {
 	
-	@Test
+	@Test(description="Verify if user details api response is shown correctly",groups= {"api","regression","smoke"})
 	public void userDetailsAPITest()
 	{
 		//System.out.println("asd");
 		//System.out.println(getToken("fd"));
 		//Header auth = new Header("Authorization", getToken(FD));
 		
-		 given().spec(SpecUtil.RequestSpecWithAuth(FD))
+		 given().spec(RequestSpecWithAuth(FD))
 		 .when()
 		 .get("userdetails")
 		 .then()
-		 .spec(SpecUtil.ResponseSpec_JSON(200))
+		 .spec(ResponseSpec_JSON(200))
 		 .and()
 		 .body("message", equalTo("Success"))
 		 .and()
-		 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
+		 .body(matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
 	}
 
 }
