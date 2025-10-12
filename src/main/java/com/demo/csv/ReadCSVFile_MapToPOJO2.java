@@ -7,30 +7,21 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import com.opencsv.bean.*;
 
-public class ReadCSVFile {
+public class ReadCSVFile_MapToPOJO2 {
 
 	public static void main(String[] args) throws IOException, CsvException {
 		// TODO Auto-generated method stub
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("testData/LoginCreds.csv");
 		InputStreamReader isr = new InputStreamReader(is);
-		/*
-		 * File file = new File(
-		 * "C:\\Users\\kstvd\\eclipse-workspace\\PhoenixTestAutomationFramework\\src\\main\\resources\\TestData\\LoginCreds.csv"
-		 * ); FileReader fr = new FileReader(file);
-		 */
 		CSVReader csvReader = new CSVReader(isr);
 		
-		List<String[]>data = csvReader.readAll();
+		CsvToBean<UserPOJO> csvToBean = new CsvToBeanBuilder(csvReader).withType(UserPOJO.class).withIgnoreEmptyLine(true).build();
 		
-		for(String[] dataArray : data)
-		{
-			for(String text: dataArray)
-			{
-				System.out.print(text + " ");
-			}
-			System.out.println();
-		}
+		List<UserPOJO> userList = csvToBean.parse();
+		System.out.println(userList);
+		System.out.println(userList.get(1).getUsername());
 
 	}
 
