@@ -15,7 +15,7 @@ public class CreateJobAPIDataDrivenTest {
 	
 	
 	
-	@Test(description="Verify if Create Job API is able to create in-warranty jobs",groups= {"api","regression","smoke"},
+	@Test(description="Verify if Create Job API is able to create in-warranty jobs",groups= {"api","regression","smoke","csv"},
 			dataProviderClass = com.dataproviders.DataProvidersUtils.class,
 			dataProvider = "CreatejobAPIDataProvider")
 	public void createJobApiTest(CreateJobPayload createJobPayload)
