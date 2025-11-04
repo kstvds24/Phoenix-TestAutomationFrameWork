@@ -15,7 +15,7 @@ public class JsonReaderUtility {
 	}
 
 	public static <T> Iterator<T> loadJSON(String fileName, Class<T[]> clazz) {
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("TestData/demo.json");
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
 		ObjectMapper objectMapper = new ObjectMapper();
 		T[] classArray;
 		List<T> list = null;
