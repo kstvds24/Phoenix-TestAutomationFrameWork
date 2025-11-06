@@ -2,14 +2,13 @@ package com.api.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
+import java.util.List;
+
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.api.request.model.UserCredentials;
+import com.poiji.bind.Poiji;
 
 public class ExcelReaderUtil {
 
@@ -17,38 +16,19 @@ public class ExcelReaderUtil {
 
 	}
 
-	public static Iterator<UserCredentials> loadTestData() {
+	public static <T> Iterator<T> loadTestData(String xlsxFileName,String sheetName, Class<T> clazz) {
 		InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("TestData/PhoenixTestData.xlsx");
+				.getResourceAsStream(xlsxFileName);  
 		XSSFWorkbook myWorkBook = null;
 		try {
 			myWorkBook = new XSSFWorkbook(is);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		XSSFSheet mySheet = myWorkBook.getSheet("LoginTestData");
-
-		XSSFRow headerRows = mySheet.getRow(0);
-		int userNameIndex = -1;
-		int passwordIndex = -1;
-		for (Cell cell : headerRows) {
-			if (cell.getStringCellValue().trim().equals("Username"))
-				userNameIndex = cell.getColumnIndex();
-			if (cell.getStringCellValue().trim().equals("Password"))
-				passwordIndex = cell.getColumnIndex();
-		}
-		int lastRowIndex = mySheet.getLastRowNum();
-		XSSFRow rowData;
-		ArrayList<UserCredentials> userList = new ArrayList<UserCredentials>();
-		UserCredentials userCredentials;
-		for (int rowIndex = 1; rowIndex <= lastRowIndex; rowIndex++) {
-			rowData = mySheet.getRow(rowIndex);
-			userCredentials = new UserCredentials(rowData.getCell(userNameIndex).toString(),
-					rowData.getCell(passwordIndex).toString());
-			userList.add(userCredentials);
-
-		}
-		return userList.iterator();
+		XSSFSheet mySheet = myWorkBook.getSheet(sheetName);
+		List<T> list = Poiji.fromExcel(mySheet, clazz);
+		System.out.println(list);
+		return list.iterator();
 
 	}
 
