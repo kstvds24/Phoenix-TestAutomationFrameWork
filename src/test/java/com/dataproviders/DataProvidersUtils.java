@@ -9,7 +9,7 @@ import org.testng.annotations.DataProvider;
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.UserCredentials;
 import com.api.utils.CSVReaderUtil;
-import com.api.utils.CreaeJobBeanMapper;
+import com.api.utils.CreateJobBeanMapper;
 import com.api.utils.ExcelReaderUtil;
 import com.api.utils.FakeDataGenerator;
 import com.api.utils.JsonReaderUtility;
@@ -29,8 +29,8 @@ public class DataProvidersUtils {
 	}
 
 	@DataProvider(name = "LoginAPIExcelDataProvider", parallel = true)
-	public static Iterator<UserCredentials> loginExcelDataProvider() {
-		return ExcelReaderUtil.loadTestData("TestData/PhoenixTestData.xlsx","LoginTestData",UserCredentials.class);
+	public static Iterator<UserBean> loginExcelDataProvider() {
+		return ExcelReaderUtil.loadTestData("TestData/PhoenixTestData.xlsx","LoginTestData",UserBean.class);
 	}
 
 	@DataProvider(name = "CreateJobAPIDataProvider", parallel = true)
@@ -47,7 +47,21 @@ public class DataProvidersUtils {
 		CreateJobPayload createJobPayloadTemp;
 		while (createJobBeanIterator.hasNext()) {
 			createJobBeanTemp = createJobBeanIterator.next();
-			createJobPayloadTemp = CreaeJobBeanMapper.mapper(createJobBeanTemp);
+			createJobPayloadTemp = CreateJobBeanMapper.mapper(createJobBeanTemp);
+			createJobPayloadList.add(createJobPayloadTemp);
+
+		}
+		return createJobPayloadList.iterator();
+	}
+	@DataProvider(name = "CreatejobAPIExcelDataProvider", parallel = true)
+	public static Iterator<CreateJobPayload> CreateJobExcelDataProvider() {
+		Iterator<CreateJobBean> createJobBeanIterator = ExcelReaderUtil.loadTestData("TestData/PhoenixTestData.xlsx","CreateJobTestData", CreateJobBean.class);
+		List<CreateJobPayload> createJobPayloadList = new ArrayList<CreateJobPayload>();
+		CreateJobBean createJobBeanTemp;
+		CreateJobPayload createJobPayloadTemp;
+		while (createJobBeanIterator.hasNext()) {
+			createJobBeanTemp = createJobBeanIterator.next();
+			createJobPayloadTemp = CreateJobBeanMapper.mapper(createJobBeanTemp);
 			createJobPayloadList.add(createJobPayloadTemp);
 
 		}
