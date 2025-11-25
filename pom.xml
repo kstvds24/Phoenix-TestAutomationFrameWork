@@ -26,11 +26,21 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>7.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ozlerhakan</groupId>
+			<artifactId>poiji</artifactId>
+			<version>4.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.4.1</version>
+
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 		<dependency>
@@ -69,11 +79,17 @@
 			<artifactId>javafaker</artifactId>
 			<version>1.0.2</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<version>9.5.0</version>
+		<groupId>com.mysql</groupId>
+		<artifactId>mysql-connector-j</artifactId>
+		<version>9.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.4.1</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -47,7 +47,7 @@ INNER JOIN tr_job_head
 ON tr_job_head.tr_customer_id = tr_customer.id
 INNER JOIN map_job_problem
 ON map_job_problem.tr_job_head_id  = tr_job_head.id
-LIMIT 4;	
+LIMIT 3;	
 			""";
 	
 	public static List<CreateJobBean> getCreateJobPyLoadData()
@@ -67,7 +67,7 @@ LIMIT 4;
 				bean.setMst_service_location_id(resultSet.getString("mst_service_location_id"));
 				bean.setMst_platform_id(resultSet.getString("mst_platform_id"));
 				bean.setMst_warrenty_status_id(resultSet.getString("mst_warrenty_status_id"));
-				bean.setMst_oem_id(resultSet.getString("mst_oem_id"));
+				bean.setMst_oem_id("1");
 				bean.setCustomer__first_name(resultSet.getString("first_name"));
 				bean.setCustomer__last_name(resultSet.getString("last_name"));
 				bean.setCustomer__mobile_number(resultSet.getString("mobile_number"));
@@ -88,7 +88,7 @@ LIMIT 4;
 				bean.setCustomer_product__imei2(resultSet.getString("imei2"));
 				bean.setCustomer_product__dop(resultSet.getString("popurl"));
 				bean.setCustomer_product__popurl(resultSet.getString("dop"));
-				bean.setCustomer_product__mst_model_id(resultSet.getString("mst_model_id"));
+				bean.setCustomer_product__mst_model_id("1");
 				bean.setProblems__id(resultSet.getString("mst_problem_id"));
 				bean.setProblems__remark(resultSet.getString("remark"));
 				bean.setCustomer_product__product_id("1");

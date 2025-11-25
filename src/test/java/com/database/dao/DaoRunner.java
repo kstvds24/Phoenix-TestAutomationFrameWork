@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.api.request.model.CreateJobPayload;
-import com.api.utils.CreaeJobBeanMapper;
+import com.api.utils.CreateJobBeanMapper;
 import com.dataproviders.api.bean.CreateJobBean;
 
 public class DaoRunner {
@@ -15,7 +15,7 @@ public class DaoRunner {
 		List<CreateJobPayload> payloadList = new ArrayList<CreateJobPayload>();
 		for(CreateJobBean createJobBean: beanList)
 		{
-			CreateJobPayload payload = CreaeJobBeanMapper.mapper(createJobBean);
+			CreateJobPayload payload = CreateJobBeanMapper.mapper(createJobBean);
 			payloadList.add(payload);
 		}
 		for(CreateJobPayload payload : payloadList)

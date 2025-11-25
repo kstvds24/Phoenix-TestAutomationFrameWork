@@ -10,9 +10,9 @@ import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.dataproviders.api.bean.CreateJobBean;
 
-public class CreaeJobBeanMapper {
+public class CreateJobBeanMapper {
 	
-	private CreaeJobBeanMapper()
+	private CreateJobBeanMapper()
 	{
 		
 	}
