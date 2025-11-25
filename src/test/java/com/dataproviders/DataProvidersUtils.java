@@ -12,6 +12,7 @@ import com.api.utils.CSVReaderUtil;
 import com.api.utils.CreaeJobBeanMapper;
 import com.api.utils.FakeDataGenerator;
 import com.api.utils.JsonReaderUtility;
+import com.database.dao.CreateJobPayloadDataDao;
 import com.dataproviders.api.bean.CreateJobBean;
 import com.dataproviders.api.bean.UserBean;
 
@@ -56,5 +57,18 @@ public class DataProvidersUtils {
 		int fakerCountInt = Integer.parseInt(fakerCount);
 		Iterator<CreateJobPayload> payloadIterator = FakeDataGenerator.generateFakeCreateJobData(fakerCountInt);
 		return payloadIterator;
+	}
+	@DataProvider(name="CreateJobAPIDBDataProvider",parallel=true)
+	public static Iterator<CreateJobPayload> CreateJobAPIDBDataProvider() {
+		// TODO Auto-generated method stub
+		List<CreateJobBean> beanList = CreateJobPayloadDataDao.getCreateJobPyLoadData();
+		List<CreateJobPayload> payloadList = new ArrayList<CreateJobPayload>();
+		for(CreateJobBean createJobBean: beanList)
+		{
+			CreateJobPayload payload = CreaeJobBeanMapper.mapper(createJobBean);
+			payloadList.add(payload);
+		}
+		return payloadList.iterator();
+
 	}
 }
