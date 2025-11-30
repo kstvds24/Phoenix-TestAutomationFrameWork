@@ -31,9 +31,11 @@ import com.api.request.model.Problems;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.JobHeadDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.JobHeadDBModel;
 
 import io.restassured.response.Response;
 
@@ -94,6 +96,14 @@ public class CreateJobAPIWithDBValidationTest {
 		Assert.assertEquals(customerProduct.imei1(), customerProductDataFromDb.getImei1());
 		Assert.assertEquals(customerProduct.imei2(), customerProductDataFromDb.getImei2());
 		Assert.assertEquals(customerProduct.serial_number(), customerProductDataFromDb.getSerial_number());
+		JobHeadDBModel jobHeadDBData = JobHeadDao.getJobHeadData(customerId);
+		Assert.assertEquals(createJobPayload.mst_oem_id(), jobHeadDBData.getMst_oem_id());
+		Assert.assertEquals(createJobPayload.mst_platform_id(), jobHeadDBData.getMst_platform_id());
+		Assert.assertEquals(createJobPayload.mst_service_location_id(),
+				jobHeadDBData.getMst_service_location_id());
+		Assert.assertEquals(createJobPayload.mst_warrenty_status_id(),
+				jobHeadDBData.getMst_warrenty_status_id());
+		Assert.assertTrue(jobHeadDBData.getJob_number().startsWith("JOB_"));
 	}
 
 }
