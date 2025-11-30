@@ -6,7 +6,7 @@ public class DaoRunner {
 
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
-		System.out.println(CustomerAddressDao.getCustomerAddressData(112855));
+		System.out.println(JobHeadDao.getJobHeadData(114372));
 
 	}
 
