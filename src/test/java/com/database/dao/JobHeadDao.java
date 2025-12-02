@@ -10,7 +10,7 @@ import com.database.model.JobHeadDBModel;
 
 public class JobHeadDao {
 private static final String JOB_HEAD_QUERY = """
-		Select * from tr_job_head where tr_customer_id=?
+		Select * from tr_job_head where id=?
 		""";
 
 private JobHeadDao()

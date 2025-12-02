@@ -32,10 +32,12 @@ import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
 import com.database.dao.JobHeadDao;
+import com.database.dao.ProblemsDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
 import com.database.model.JobHeadDBModel;
+import com.database.model.ProblemsDBModel;
 
 import io.restassured.response.Response;
 
@@ -49,8 +51,8 @@ public class CreateJobAPIWithDBValidationTest {
 	public void setup() {
 		customer = new Customer("Kaus", "Das", "7686923755", "", "kstvds@gmail.com", "");
 		customerAddress = new CustomerAddress("21", "Neer", "Kedar", "dumdum", "Sinthee", "700030", "India", "WB");
-		customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "99548501098998",
-				"99548501098998", "99548501098998", getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
+		customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "92641341294098",
+				"92641341294098", "92641341294098", getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(),
 				Model.NEXUS_2_BLUE.getCode());
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
 		List<Problems> problemsList = new ArrayList<Problems>();
@@ -96,14 +98,17 @@ public class CreateJobAPIWithDBValidationTest {
 		Assert.assertEquals(customerProduct.imei1(), customerProductDataFromDb.getImei1());
 		Assert.assertEquals(customerProduct.imei2(), customerProductDataFromDb.getImei2());
 		Assert.assertEquals(customerProduct.serial_number(), customerProductDataFromDb.getSerial_number());
-		JobHeadDBModel jobHeadDBData = JobHeadDao.getJobHeadData(customerId);
+		int id = response.then().extract().body().jsonPath().getInt("data.id");
+		JobHeadDBModel jobHeadDBData = JobHeadDao.getJobHeadData(id);
 		Assert.assertEquals(createJobPayload.mst_oem_id(), jobHeadDBData.getMst_oem_id());
 		Assert.assertEquals(createJobPayload.mst_platform_id(), jobHeadDBData.getMst_platform_id());
-		Assert.assertEquals(createJobPayload.mst_service_location_id(),
-				jobHeadDBData.getMst_service_location_id());
-		Assert.assertEquals(createJobPayload.mst_warrenty_status_id(),
-				jobHeadDBData.getMst_warrenty_status_id());
+		Assert.assertEquals(createJobPayload.mst_service_location_id(),jobHeadDBData.getMst_service_location_id());
+		Assert.assertEquals(createJobPayload.mst_warrenty_status_id(),jobHeadDBData.getMst_warrenty_status_id());
 		Assert.assertTrue(jobHeadDBData.getJob_number().startsWith("JOB_"));
+		int jobHeadId = response.then().extract().body().jsonPath().getInt("data.id");
+		ProblemsDBModel problemsDataFromDb = ProblemsDao.getProblemsDBInfo(jobHeadId);
+		Assert.assertEquals(problemsDataFromDb.getMst_problem_id(), createJobPayload.problems().get(0).id());
+		Assert.assertEquals(problemsDataFromDb.getRemark(), createJobPayload.problems().get(0).remark());
 	}
 
 }
