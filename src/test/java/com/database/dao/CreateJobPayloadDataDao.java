@@ -49,7 +49,10 @@ INNER JOIN map_job_problem
 ON map_job_problem.tr_job_head_id  = tr_job_head.id
 LIMIT 3;	
 			""";
-	
+	private CreateJobPayloadDataDao()
+	{
+		
+	}
 	public static List<CreateJobBean> getCreateJobPyLoadData()
 	{
 		Connection conn;
