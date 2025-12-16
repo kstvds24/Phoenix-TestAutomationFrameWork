@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.request.model.UserCredentials;
+import com.api.services.AuthService;
+
 import static com.api.utils.SpecUtil.*;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
@@ -25,10 +27,7 @@ public class LoginAPITest {
 	public void loginAPITest()
 	{
 		//Rest Assured Code
-		given()
-		.spec(RequestSpec(user))
-		.when()
-		.post("login")
+		AuthService.Login(user)
 		.then()
 		.spec(ResponseSpec_JSON(200))
 		.and()
