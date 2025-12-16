@@ -5,13 +5,26 @@ import java.sql.SQLException;
 
 import com.api.utils.ConfigManager;
 import com.api.utils.EnvUtil;
+import com.api.utils.VaultDBConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class DataBaseManager {
-	private static final String DB_URL = EnvUtil.getValue("DB_URL");
-	private static final String DB_USERNAME = EnvUtil.getValue("DB_USER_NAME");
-	private static final String DB_PASSWORD = EnvUtil.getValue("DB_PASSWORD");
+	/*
+	 * private static final String DB_URL = EnvUtil.getValue("DB_URL"); private
+	 * static final String DB_USERNAME = EnvUtil.getValue("DB_USER_NAME"); private
+	 * static final String DB_PASSWORD = EnvUtil.getValue("DB_PASSWORD");
+	 */
+	/*
+	 * private static final String DB_URL = VaultDBConfig.getSecret("DB_URL");
+	 * private static final String DB_USERNAME =
+	 * VaultDBConfig.getSecret("DB_USER_NAME"); private static final String
+	 * DB_PASSWORD = VaultDBConfig.getSecret("DB_PASSWORD");
+	 */
+	private static boolean isVaultUp = true;
+	private static final String DB_URL = LoadSecrets("DB_URL");
+	private static final String DB_USERNAME = LoadSecrets("DB_USER_NAME");
+	private static final String DB_PASSWORD = LoadSecrets("DB_PASSWORD");
 	private static final int MAXIMUM_POOL_SIZE = Integer.parseInt(ConfigManager.getProperty("MAXIMUM_POOL_SIZE"));
 	private static final int MINIMUM_IDLE_COUNT = Integer.parseInt(ConfigManager.getProperty("MINIMUM_IDLE_COUNT"));
 	private static final int CONNECTION_TIMEOUT_IN_SECS = Integer
@@ -23,6 +36,23 @@ public class DataBaseManager {
 	private static Connection connection = null;
 	private static HikariConfig hikariConfig;
 	private volatile static HikariDataSource hikariDataSource;
+
+	public static String LoadSecrets(String key) {
+		String value = null;
+		if (isVaultUp) {
+			value = VaultDBConfig.getSecret(key);
+			if (value == null) {
+				System.err.println("Vault is Down!! or some issue with vault");
+				isVaultUp = false;
+			} else {
+				System.out.println("READING VALUES FROM VAULT.......");
+				return value;
+			}
+		}
+		System.out.println("READING VALUES FROM ENV.......");
+		value = EnvUtil.getValue(key);
+		return value;
+	}
 
 	private static void instantiatePool() {
 		if (hikariDataSource == null) {
