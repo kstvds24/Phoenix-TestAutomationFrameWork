@@ -10,6 +10,8 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import org.testng.annotations.Test;
 
+import com.api.services.MasterService;
+
 import static com.api.utils.SpecUtil.*;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
@@ -19,10 +21,7 @@ public class MasterAPITest {
 	@Test(description="Verify that master api returns correct response", groups= {"api","regression","smoke"})
 	public void masterAPITest()
 	{
-		given()
-		.spec(RequestSpecWithAuth(FD))
-		.when()
-		.post("master")
+		MasterService.master(FD)
 		.then()
 		.spec(ResponseSpec_JSON(200))
 		.body("message", equalTo("Success"))
