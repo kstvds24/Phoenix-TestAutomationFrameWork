@@ -1,0 +1,12 @@
+<Configuration>
+	<appenders>
+		<Console name="Console" target="SYSTEM OUT">
+			<PatternLayout pattern="%d [%t] %highlight{%5p} %c:%L - %m%n"></PatternLayout>
+		</Console>
+	</appenders>
+	<Loggers>
+		<root level="info">
+			<AppenderRef ref="Console"></AppenderRef>
+		</root>
+	</Loggers>
+</Configuration>
