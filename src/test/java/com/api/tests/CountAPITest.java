@@ -13,6 +13,8 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import org.testng.annotations.Test;
 
+import com.api.services.DashboardService;
+
 import static com.api.utils.SpecUtil.*;
 
 public class CountAPITest {
@@ -20,10 +22,7 @@ public class CountAPITest {
 	@Test(description = "Verifying if count api test is giving correct response", groups= {"api","regression","smoke"})
 	public void verifyCountAPIResponse()
 	{
-		given()
-		.spec(RequestSpecWithAuth(FD))
-		.when()
-		.get("/dashboard/count")
+		DashboardService.count(FD)
 		.then()
 		.spec(ResponseSpec_JSON(200))
 		.body("message", equalTo("Success"))

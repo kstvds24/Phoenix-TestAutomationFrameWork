@@ -1,9 +1,7 @@
 package com.api.tests;
 
 import static com.api.utils.DateTimeUtil.getTimeWithDaysAgo;
-import static com.api.utils.SpecUtil.RequestSpecWithAuth;
 import static com.api.utils.SpecUtil.ResponseSpec_JSON;
-import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
@@ -28,6 +26,7 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import com.api.services.JobService;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
@@ -65,7 +64,7 @@ public class CreateJobAPIWithDBValidationTest {
 	@Test(description = "Verify if Create Job API is able to create in-warranty jobs", groups = { "api", "regression",
 			"smoke" })
 	public void createJobApiTest() {
-		Response response = given().spec(RequestSpecWithAuth(Role.FD, createJobPayload)).when().post("job/create").then()
+		Response response = JobService.createJob(Role.FD, createJobPayload).then()
 				.spec(ResponseSpec_JSON(200))
 				.body(matchesJsonSchemaInClasspath("response-schema/CreateJobAPIResponseSchema.json"))
 				.body("message", equalTo("Job created successfully. ")).body("data.mst_service_location_id", equalTo(1))
