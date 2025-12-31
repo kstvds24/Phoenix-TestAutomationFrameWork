@@ -1,7 +1,7 @@
 <Configuration>
 	<appenders>
 		<Console name="Console" target="SYSTEM OUT">
-			<PatternLayout pattern="%d [%t] %highlight{%5p} %c:%L - %m%n"></PatternLayout>
+			<PatternLayout pattern="%d [%t] %highlight{%5p} %c::%M()::%L - %m%n"></PatternLayout>
 		</Console>
 	</appenders>
 	<Loggers>
