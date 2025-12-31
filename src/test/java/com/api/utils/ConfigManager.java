@@ -4,35 +4,43 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ConfigManager {
-	//private static ConfigManager2 instance;
 	private static Properties prop = new Properties();
+	private static final Logger LOGGER = LogManager.getLogger(ConfigManager.class);
 	private static String path = "";
 	private static String env;
-	private ConfigManager()
-	{
-		
+
+	private ConfigManager() {
+
 	}
 
 	static {
-		env = System.getProperty("env","qa");
+		LOGGER.info("Reading env values passed from terminal");
+		if (System.getProperty("env") == null) {
+			LOGGER.warn("Env variable is not set....using qa as the env");
+		}
+		env = System.getProperty("env", "qa");
+		LOGGER.info("Running the tests in the env {}", env);
 		env = env.toLowerCase().trim();
-		switch(env)
-		{
+		switch (env) {
 		case "dev" -> path = "config/config.dev.properties";
 		case "qa" -> path = "config/config.qa.properties";
 		case "uat" -> path = "config/config.uat.properties";
-		default  -> path = "config/config.qa.properties";
+		default -> path = "config/config.qa.properties";
 		}
-		InputStream input =  Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-		if(input == null)
-		{
+		InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+		if (input == null) {
+			LOGGER.error("Cannot find the file at the path {}" + path);
 			throw new RuntimeException("config.properties file not found");
+
 		}
-			try {
+		try {
 			prop.load(input);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			LOGGER.error("Something went wrong with file at path {} {}" + path,e);
 			e.printStackTrace();
 		}
 

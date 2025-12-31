@@ -7,6 +7,9 @@ import static org.hamcrest.Matchers.notNullValue;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.api.constants.Role;
 import com.api.request.model.UserCredentials;
 
@@ -14,16 +17,18 @@ import io.restassured.http.ContentType;
 
 public class AuthTokenProvider {
 	private static Map<Role, String> tokenCache = new ConcurrentHashMap<Role, String>();
+	private static final Logger LOGGER = LogManager.getLogger(AuthTokenProvider.class);
 
 	private AuthTokenProvider() {
 
 	}
 
 	public static String getToken(Role role) {
+		LOGGER.info("Cecking if token for {} role is present in the cache", role);
 		if (tokenCache.containsKey(role)) {
 			return tokenCache.get(role);
 		}
-
+		LOGGER.info("Token not found making the login request for the role {}", role);
 		UserCredentials user = null;
 		if (role == Role.FD) {
 			user = new UserCredentials("iamfd", "password");

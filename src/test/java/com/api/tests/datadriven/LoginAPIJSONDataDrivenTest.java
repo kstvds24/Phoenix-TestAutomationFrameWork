@@ -6,15 +6,15 @@ import static org.hamcrest.Matchers.equalTo;
 
 import org.testng.annotations.Test;
 
-import com.api.request.model.UserCredentials;
 import com.api.services.AuthService;
+import com.dataproviders.api.bean.UserBean;
 
 public class LoginAPIJSONDataDrivenTest {
 
 	@Test(description = "Verifying if login api is working fine for FD User", groups = { "api", "regression",
 			"datadriven",
 			"csv" }, dataProviderClass = com.dataproviders.DataProvidersUtils.class, dataProvider = "LoginAPIJsonDataProvider")
-	public void loginAPITest(UserCredentials userCredentials) {
+	public void loginAPITest(UserBean userCredentials) {
 		// Rest Assured Code
 		AuthService.Login(userCredentials).then().spec(ResponseSpec_JSON(200)).and()
 				.body("message", equalTo("Success"))

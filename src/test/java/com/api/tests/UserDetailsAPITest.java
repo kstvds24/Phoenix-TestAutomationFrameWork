@@ -14,12 +14,10 @@ public class UserDetailsAPITest {
 	@Test(description = "Verify if user details api response is shown correctly", groups = { "api", "regression",
 			"smoke" })
 	public void userDetailsAPITest() {
-		// System.out.println("asd");
-		// System.out.println(getToken("fd"));
-		// Header auth = new Header("Authorization", getToken(FD));
 
-		UserDetailsService.userDetails(Role.FD).then().spec(ResponseSpec_JSON(200)).and().body("message", equalTo("Success"))
-				.and().body(matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
+		UserDetailsService.userDetails(Role.FD).then().spec(ResponseSpec_JSON(200)).and()
+				.body("message", equalTo("Success")).and()
+				.body(matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
 	}
 
 }

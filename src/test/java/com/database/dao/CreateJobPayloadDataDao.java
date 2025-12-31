@@ -7,65 +7,69 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DataBaseManager;
 import com.dataproviders.api.bean.CreateJobBean;
 
 public class CreateJobPayloadDataDao {
 
-	private static final String SQL_Query = 
-			"""
-			SELECT 
-mst_service_location_id,
-mst_platform_id,
-mst_warrenty_status_id,
-mst_oem_id,
-first_name, last_name, mobile_number, mobile_number_alt, email_id, email_id_alt,
-flat_number,
-apartment_name,
-street_name,
-landmark,
-area,
-pincode,
-country,
-state,
-serial_number,
-imei1,
-imei2,
-popurl,
-dop,
-mst_model_id,
-mst_problem_id,
-remark
+	private static final Logger LOGGER = LogManager.getLogger(CreateJobPayloadDataDao.class);
+	private static final String SQL_Query = """
+						SELECT
+			mst_service_location_id,
+			mst_platform_id,
+			mst_warrenty_status_id,
+			mst_oem_id,
+			first_name, last_name, mobile_number, mobile_number_alt, email_id, email_id_alt,
+			flat_number,
+			apartment_name,
+			street_name,
+			landmark,
+			area,
+			pincode,
+			country,
+			state,
+			serial_number,
+			imei1,
+			imei2,
+			popurl,
+			dop,
+			mst_model_id,
+			mst_problem_id,
+			remark
 
 
-FROM tr_customer
-INNER JOIN tr_customer_address
-ON tr_customer.tr_customer_address_id = tr_customer_address.id
-INNER JOIN tr_customer_product
-ON tr_customer_product.tr_customer_id = tr_customer.id
-INNER JOIN tr_job_head
-ON tr_job_head.tr_customer_id = tr_customer.id
-INNER JOIN map_job_problem
-ON map_job_problem.tr_job_head_id  = tr_job_head.id
-LIMIT 3;	
-			""";
-	private CreateJobPayloadDataDao()
-	{
-		
+			FROM tr_customer
+			INNER JOIN tr_customer_address
+			ON tr_customer.tr_customer_address_id = tr_customer_address.id
+			INNER JOIN tr_customer_product
+			ON tr_customer_product.tr_customer_id = tr_customer.id
+			INNER JOIN tr_job_head
+			ON tr_job_head.tr_customer_id = tr_customer.id
+			INNER JOIN map_job_problem
+			ON map_job_problem.tr_job_head_id  = tr_job_head.id
+			LIMIT 3;
+						""";
+
+	private CreateJobPayloadDataDao() {
+
 	}
-	public static List<CreateJobBean> getCreateJobPyLoadData()
-	{
+
+	public static List<CreateJobBean> getCreateJobPyLoadData() {
 		Connection conn;
 		Statement statement;
 		ResultSet resultSet = null;
-		
+
 		List<CreateJobBean> beanList = new ArrayList<CreateJobBean>();
 		try {
+			LOGGER.info("Getting the connection from the database manager");
 			conn = DataBaseManager.getConnection();
 			statement = conn.createStatement();
+			LOGGER.info("Executing the SQL Query {}", SQL_Query);
 			resultSet = statement.executeQuery(SQL_Query);
-			while(resultSet.next())
-			{
+			while (resultSet.next()) {
 				CreateJobBean bean = new CreateJobBean();
 				bean.setMst_service_location_id(resultSet.getString("mst_service_location_id"));
 				bean.setMst_platform_id(resultSet.getString("mst_platform_id"));
@@ -97,10 +101,9 @@ LIMIT 3;
 				bean.setCustomer_product__product_id("1");
 				beanList.add(bean);
 			}
-			//System.out.println(beanList);
-		}
-		catch(SQLException e)
-		{
+			// System.out.println(beanList);
+		} catch (SQLException e) {
+			LOGGER.error("Cannot Convert the dataset to bean {}", e);
 			e.printStackTrace();
 		}
 		return beanList;

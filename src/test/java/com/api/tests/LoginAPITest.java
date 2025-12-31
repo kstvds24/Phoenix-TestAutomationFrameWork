@@ -7,18 +7,18 @@ import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.api.request.model.UserCredentials;
 import com.api.services.AuthService;
+import com.dataproviders.api.bean.UserBean;
 
 
 public class LoginAPITest {
 	
 	
-	private UserCredentials user;
+	private UserBean user;
 	@BeforeMethod
 	public void setup()
 	{
-		user = new UserCredentials("iamfd", "password");
+		user = new UserBean("iamfd", "password");
 	}
 	@Test(description = "Verifying if login api is working fine for FD User",groups = {"api","regression","smoke"})
 	public void loginAPITest()
