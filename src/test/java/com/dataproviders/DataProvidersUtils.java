@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.testng.annotations.DataProvider;
 
 import com.api.request.model.CreateJobPayload;
-import com.api.request.model.UserCredentials;
 import com.api.utils.CSVReaderUtil;
 import com.api.utils.CreateJobBeanMapper;
 import com.api.utils.ExcelReaderUtil;
@@ -37,7 +36,7 @@ public class DataProvidersUtils {
 	@DataProvider(name = "LoginAPIExcelDataProvider", parallel = true)
 	public static Iterator<UserBean> loginExcelDataProvider() {
 		LOGGER.info("Loading Data from the EXCEL file TestData/PhoenixTestData.xlsx");
-		return ExcelReaderUtil.loadTestData("TestData/PhoenixTestData.xlsx","LoginTestData",UserBean.class);
+		return ExcelReaderUtil.loadTestData("TestData/PhoenixTestData.xlsx", "LoginTestData", UserBean.class);
 	}
 
 	@DataProvider(name = "CreateJobAPIDataProvider", parallel = true)
@@ -62,10 +61,12 @@ public class DataProvidersUtils {
 		}
 		return createJobPayloadList.iterator();
 	}
+
 	@DataProvider(name = "CreatejobAPIExcelDataProvider", parallel = true)
 	public static Iterator<CreateJobPayload> CreateJobExcelDataProvider() {
 		LOGGER.info("Loading Data from the Excel file TestData/PhoenixTestData.xlsx");
-		Iterator<CreateJobBean> createJobBeanIterator = ExcelReaderUtil.loadTestData("TestData/PhoenixTestData.xlsx","CreateJobTestData", CreateJobBean.class);
+		Iterator<CreateJobBean> createJobBeanIterator = ExcelReaderUtil.loadTestData("TestData/PhoenixTestData.xlsx",
+				"CreateJobTestData", CreateJobBean.class);
 		List<CreateJobPayload> createJobPayloadList = new ArrayList<CreateJobPayload>();
 		CreateJobBean createJobBeanTemp;
 		CreateJobPayload createJobPayloadTemp;
@@ -81,18 +82,18 @@ public class DataProvidersUtils {
 	@DataProvider(name = "CreteJobAPIFakerDataProvider", parallel = true)
 	public static Iterator<CreateJobPayload> createJobFakeDataProvider() {
 		String fakerCount = System.getProperty("fakerCount", "5");
-		LOGGER.info("Creating fake job data with count {}",fakerCount);
+		LOGGER.info("Creating fake job data with count {}", fakerCount);
 		int fakerCountInt = Integer.parseInt(fakerCount);
 		Iterator<CreateJobPayload> payloadIterator = FakeDataGenerator.generateFakeCreateJobData(fakerCountInt);
 		return payloadIterator;
 	}
-	@DataProvider(name="CreateJobAPIDBDataProvider",parallel=true)
+
+	@DataProvider(name = "CreateJobAPIDBDataProvider", parallel = true)
 	public static Iterator<CreateJobPayload> CreateJobAPIDBDataProvider() {
 		LOGGER.info("Loading Data from DataBase for Create Job Payload");
 		List<CreateJobBean> beanList = CreateJobPayloadDataDao.getCreateJobPyLoadData();
 		List<CreateJobPayload> payloadList = new ArrayList<CreateJobPayload>();
-		for(CreateJobBean createJobBean: beanList)
-		{
+		for (CreateJobBean createJobBean : beanList) {
 			CreateJobPayload payload = CreateJobBeanMapper.mapper(createJobBean);
 			payloadList.add(payload);
 		}
