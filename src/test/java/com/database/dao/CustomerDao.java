@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DataBaseManager;
 import com.database.model.CustomerDBModel;
 
 public class CustomerDao {
-
+	private static final Logger LOGGER = LogManager.getLogger(CustomerDao.class);
 	private static final String CUSTOMER_DETAILS_QUERY = """
 			Select * from tr_customer WHERE id = ?
 			""";
@@ -23,7 +26,9 @@ private CustomerDao()
 		PreparedStatement preparedStatement;
 		ResultSet result;
 		try {
+			LOGGER.info("Getting the connection from the database manager");
 			conn = DataBaseManager.getConnection();
+			LOGGER.info("Executing the SQL Query {}", CUSTOMER_DETAILS_QUERY);
 			preparedStatement = conn.prepareStatement(CUSTOMER_DETAILS_QUERY);
 			preparedStatement.setInt(1, customerId);
 			result = preparedStatement.executeQuery();
@@ -33,6 +38,7 @@ private CustomerDao()
 						result.getString("email_id"), result.getString("email_id_alt"),result.getInt("tr_customer_address_id"));
 			}
 		} catch (SQLException ex) {
+			LOGGER.error("Cannot Convert the dataset to bean {}", ex);
 			System.err.print(ex.getMessage());
 		}
 		return customerDBModel;
