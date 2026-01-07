@@ -41,7 +41,7 @@ public class DataBaseManager {
 	private static HikariConfig hikariConfig;
 	private volatile static HikariDataSource hikariDataSource;
 
-	public static String LoadSecrets(String key) {
+	private static String LoadSecrets(String key) {
 		String value = null;
 		if (isVaultUp) {
 			value = VaultDBConfig.getSecret(key);
