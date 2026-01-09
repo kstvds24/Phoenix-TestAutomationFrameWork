@@ -1,21 +1,22 @@
 package com.api.tests;
 
 import static com.api.constants.Role.FD;
+import static com.api.utils.SpecUtil.RequestSpec;
+import static com.api.utils.SpecUtil.ResponseSpec_JSON;
+import static com.api.utils.SpecUtil.ResponseSpec_TEXT;
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.notNullValue;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.services.MasterService;
-
-import static com.api.utils.SpecUtil.*;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
-
+@Listeners(com.listeners.APITestListeners.class)
 public class MasterAPITest {
 	
 	@Test(description="Verify that master api returns correct response", groups= {"api","regression","smoke"})
