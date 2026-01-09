@@ -4,11 +4,12 @@ import static com.api.utils.SpecUtil.ResponseSpec_JSON;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.services.AuthService;
 import com.dataproviders.api.bean.UserBean;
-
+@Listeners(com.listeners.APITestListeners.class)
 public class LoginAPIExcelDataDrivenTest {
 
 	@Test(description = "Verifying if login api is working fine for all Users", groups = { "api", "regression",

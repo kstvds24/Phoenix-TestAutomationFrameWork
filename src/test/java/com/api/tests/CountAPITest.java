@@ -11,12 +11,13 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.services.DashboardService;
 
 import static com.api.utils.SpecUtil.*;
-
+@Listeners(com.listeners.APITestListeners.class)
 public class CountAPITest {
 	
 	@Test(description = "Verifying if count api test is giving correct response", groups= {"api","regression","smoke"})
