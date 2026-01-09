@@ -4,11 +4,12 @@ import static com.api.utils.SpecUtil.ResponseSpec_JSON;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.constants.Role;
 import com.api.services.UserDetailsService;
-
+@Listeners(com.listeners.APITestListeners.class)
 public class UserDetailsAPITest {
 
 	@Test(description = "Verify if user details api response is shown correctly", groups = { "api", "regression",

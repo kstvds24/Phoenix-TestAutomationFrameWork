@@ -4,12 +4,13 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.constants.Role;
 import com.api.request.model.CreateJobPayload;
 import com.api.services.JobService;
-
+@Listeners(com.listeners.APITestListeners.class)
 public class CreateJobAPIFakeDataDrivenTest {
 	
 	@Test(description="Verify if Create Job API is able to create in-warranty jobs with fake data",groups= {"api","regression","smoke","faker"},

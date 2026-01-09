@@ -4,12 +4,13 @@ import static com.api.constants.Role.FD;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.request.model.SearchJob;
 import com.api.services.JobService;
 import com.api.utils.SpecUtil;
-
+@Listeners(com.listeners.APITestListeners.class)
 public class SearchAPITest {
 	private SearchJob searchJobPayload;
 	private static final String jobNumber = "JOB_134123";
