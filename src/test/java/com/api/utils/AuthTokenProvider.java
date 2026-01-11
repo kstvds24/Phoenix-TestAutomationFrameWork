@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.api.constants.Role;
 import com.api.request.model.UserCredentials;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 
 public class AuthTokenProvider {
@@ -23,6 +24,7 @@ public class AuthTokenProvider {
 
 	}
 
+	@Step("Setting up Authentication for Role")
 	public static String getToken(Role role) {
 		LOGGER.info("Cecking if token for {} role is present in the cache", role);
 		if (tokenCache.containsKey(role)) {

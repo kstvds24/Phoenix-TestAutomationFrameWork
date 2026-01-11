@@ -3,7 +3,7 @@ package com.api.tests;
 import static com.api.constants.Role.FD;
 import static org.hamcrest.Matchers.equalTo;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -14,7 +14,7 @@ import com.api.utils.SpecUtil;
 public class SearchAPITest {
 	private SearchJob searchJobPayload;
 	private static final String jobNumber = "JOB_134123";
-	@BeforeTest
+	@BeforeMethod(description = "Creating the Search Payload")
 	public void initialize()
 	{
 		searchJobPayload = new SearchJob(jobNumber);

@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import com.database.DataBaseManager;
 import com.database.model.ProblemsDBModel;
 
+import io.qameta.allure.Step;
+
 public class ProblemsDao {
 	private static final Logger LOGGER = LogManager.getLogger(ProblemsDao.class);
 	private static final String PROBLEMS_QUERY = """
@@ -20,6 +22,7 @@ public class ProblemsDao {
 	public ProblemsDao() {
 	}
 
+	@Step("Retrieving Customer Problems Data From DataBase for specific id")
 	public static ProblemsDBModel getProblemsDBInfo(int jobHeadId) {
 		ProblemsDBModel problemsDBData = null;
 		Connection conn;

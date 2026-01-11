@@ -1,13 +1,13 @@
 package com.api.services;
 
-import static com.api.utils.SpecUtil.RequestSpec;
 import static io.restassured.RestAssured.given;
-
+import static com.api.utils.SpecUtil.RequestSpec;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.dataproviders.api.bean.UserBean;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class AuthService {
@@ -17,6 +17,7 @@ public class AuthService {
 	{
 		
 	}
+	@Step("Perform Login request with th user credentials")
 	public static Response Login(Object userCredentials)
 	{
 		LOGGER.info("Making logging request for payload {}",((UserBean)userCredentials).getUsername());

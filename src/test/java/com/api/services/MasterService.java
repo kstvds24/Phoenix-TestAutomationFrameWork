@@ -2,6 +2,7 @@ package com.api.services;
 
 import com.api.constants.Role;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import static com.api.utils.SpecUtil.*;
@@ -19,7 +20,7 @@ public class MasterService {
 	private MasterService() {
 
 	}
-
+	@Step("Making Master API request")
 	public static Response master(Role role) {
 		LOGGER.info("Making request to the {} for the role {}", MASTER_ENDPOINT, role);
 		return given().spec(RequestSpecWithAuth(role)).when().post(MASTER_ENDPOINT);

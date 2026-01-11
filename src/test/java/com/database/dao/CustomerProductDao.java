@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import com.database.DataBaseManager;
 import com.database.model.CustomerProductDBModel;
 
+import io.qameta.allure.Step;
+
 public class CustomerProductDao {
 	private static final Logger LOGGER = LogManager.getLogger(CustomerProductDao.class);
 	private static final String CUSTOMER_PROUCT_QUERY = """
@@ -21,6 +23,7 @@ public class CustomerProductDao {
 
 	}
 
+	@Step("Retrieving Customer Product Data From DataBase for specific id")
 	public static CustomerProductDBModel getCustomerProductId(int trCustomerId) {
 		CustomerProductDBModel customerProductData = null;
 		Connection conn;

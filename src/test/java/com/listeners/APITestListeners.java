@@ -8,6 +8,8 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.api.utils.AllureEnvironmentWriterUtility;
+
 public class APITestListeners implements ITestListener {
 	private static final Logger LOGGER = LogManager.getLogger(APITestListeners.class);
 
@@ -39,6 +41,7 @@ public class APITestListeners implements ITestListener {
 
 	public void onStart(ITestContext context) {
 		LOGGER.info("*************** Starting of Phoenix Automation Framework *********************");
+		AllureEnvironmentWriterUtility.createEnvironmentPropertiesFile();
 	}
 
 	public void onFinish(ITestContext context) {
