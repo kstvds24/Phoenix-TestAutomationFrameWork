@@ -26,11 +26,21 @@ import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.api.services.JobService;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+
 @Listeners(com.listeners.APITestListeners.class)
+@Epic("Job Management")
+@Feature("Job Creation")
 public class CreateJobAPITest {
 	CreateJobPayload createJobPayload;
 	
-	@BeforeMethod
+	@BeforeMethod(description = "Creating the create job payload request")
 	public void setup()
 	{
 		Customer customer = new Customer("Kaus", "Das", "7686923755", "", "kstvds@gmail.com", "");
@@ -41,6 +51,9 @@ public class CreateJobAPITest {
 		problemsList.add(problems);
 		createJobPayload = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platfrom.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), Oem.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
 	}
+	@Story("FD should be able to create job")
+	@Description("Verify if Create Job API is able to create in-warranty jobs for FD User")
+	@Severity(SeverityLevel.BLOCKER)
 	@Test(description="Verify if Create Job API is able to create in-warranty jobs",groups= {"api","regression","smoke"})
 	public void createJobApiTest()
 	{

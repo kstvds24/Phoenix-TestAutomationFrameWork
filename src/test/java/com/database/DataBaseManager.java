@@ -12,6 +12,8 @@ import com.api.utils.VaultDBConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import io.qameta.allure.Step;
+
 public class DataBaseManager {
 	/*
 	 * private static final String DB_URL = EnvUtil.getValue("DB_URL"); private
@@ -41,6 +43,7 @@ public class DataBaseManager {
 	private static HikariConfig hikariConfig;
 	private volatile static HikariDataSource hikariDataSource;
 
+	@Step("Loading Database secrets for Key")
 	private static String LoadSecrets(String key) {
 		String value = null;
 		if (isVaultUp) {
@@ -58,6 +61,7 @@ public class DataBaseManager {
 		return value;
 	}
 
+	
 	private static void instantiatePool() {
 		if (hikariDataSource == null) {
 			LOGGER.warn("DataBase Connection is not available---Creting HikariDataSource");
@@ -82,6 +86,7 @@ public class DataBaseManager {
 		}
 	}
 
+	@Step("Getting the DataBase connection")
 	public static Connection getConnection() throws SQLException {
 		if (hikariDataSource == null) {
 			LOGGER.info("Initializing the DataBase Connection using HikariCP");
