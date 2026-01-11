@@ -26,7 +26,7 @@ public class SensitiveDataFilter implements Filter {
 
 		redactPayload(requestSpec);
 		Response response = ctx.next(requestSpec, responseSpec);
-		LOGGER.info("******************RESPONSE*********************");
+		LOGGER.info("******************RESPONSE********************");
 		LOGGER.info("BASE URI {}", response.getStatusLine());
 		LOGGER.info("HTTP METHOD {}", response.getTimeIn(TimeUnit.MILLISECONDS));
 		LOGGER.info("RESPONSE HEADERS: \n {}", response.getHeaders());
