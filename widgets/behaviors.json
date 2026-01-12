@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"1a6fe7a9c840287f1410d1aa707dc4ba","name":"Job Management","statistic":{"failed":1,"broken":0,"skipped":0,"passed":3,"unknown":0,"total":4}},{"uid":"cf80ae54266b20121713418dc0893786","name":"User Management","statistic":{"failed":0,"broken":0,"skipped":0,"passed":2,"unknown":0,"total":2}}]}
