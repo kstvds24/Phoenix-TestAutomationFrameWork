@@ -3,3 +3,4 @@ test-output/
 .env
 /logs/
 .allure/
+allure-results/

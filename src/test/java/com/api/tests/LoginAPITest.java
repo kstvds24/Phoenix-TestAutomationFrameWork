@@ -34,7 +34,7 @@ public class LoginAPITest {
 	@Story("Valid User should be able to login")
 	@Description("Verify if FD user is able to login via api")
 	@Severity(SeverityLevel.BLOCKER)
-	@Test(description = "Verifying if login api is working fine for FD User",groups = {"api","regression","smoke"})
+	@Test(description = "Verifying if login api is working fine for FD User",groups = {"api","regression","smoke"}, retryAnalyzer = com.api.retry.RetryAnalyzer.class)
 	public void loginAPITest()
 	{
 		//Rest Assured Code
